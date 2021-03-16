@@ -1,6 +1,6 @@
 
 <input (keyup)="keydown($event)" id="searchBar" placeholder="Filter by name, state, or genre">
-<button type="button" class="btn btn-primary btn-sm" (click)="this.updateListAndDropdowns(this.restaurantData, this.searchFilter, this.stateFilter, this.genreFilter)">Filter</button>
+<button type="button" class="btn btn-sm" (click)="this.updateListAndDropdowns(this.restaurantData, this.searchFilter, this.stateFilter, this.genreFilter)">Filter</button>
 <label>Filter by State</label>
 <Select id="state-select" (change)="onSelectChange($event, 'state')">
     <option value="all">All</option>
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let restaurant of workingRestaurantList">
+        <tr *ngFor="let restaurant of workingRestaurantListVisible">
             <td>{{ restaurant.name }}</td>
             <td>{{ restaurant.city }}</td>
             <td>{{ restaurant.state }}</td>
@@ -34,3 +34,5 @@
 <div *ngIf="!workingRestaurantList.length">
     <h2>No Results were found</h2>
 </div>
+<button type="button" class="btn btn-sm page-change" (click)="onPageChange($event)" value="back" [disabled]="pageStart===0">Back</button>
+<button type="button" class="btn btn-sm page-change" (click)="onPageChange($event)" value="forward" [disabled]="workingRestaurantList.length <= pageEnd">Forward</button>

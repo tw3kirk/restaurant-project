@@ -12,8 +12,11 @@ import { RestaurantService } from '../shared/restaurant.service';
 export class RestaurantListComponent implements OnInit {
     private ngUnsubscribe = new Subject();
     
-    /**The list of restaurants visible on the page */
+    /**The list of restaurants filtered */
     workingRestaurantList: Restaurant[];
+
+    /**The list of restaurants visible on the page */
+    workingRestaurantListVisible: Restaurant[];
 
     /**The list of all restaurants gathered at page load */
     restaurantData: Restaurant[];
@@ -33,10 +36,15 @@ export class RestaurantListComponent implements OnInit {
     /**The text of the search filter */
     searchFilter = "";
 
+    /** Page start and end indeces */
+    pageStart = 0;
+    pageEnd = 10;
+
     constructor(
         private restaurantService: RestaurantService
     ) {
         this.workingRestaurantList = [];
+        this.workingRestaurantListVisible = [];
         this.restaurantData = [];
     }
     
@@ -101,6 +109,22 @@ export class RestaurantListComponent implements OnInit {
     }
 
     /**
+     * A function to change page based on button clicks
+     * @param $event The event triggered by clicking the back and forward buttons
+     */
+    onPageChange($event : Event) {
+        const pageChangeValue = ($event.target as HTMLInputElement).value;
+        if (pageChangeValue === "forward" && this.workingRestaurantList.length > this.pageEnd) {
+            this.pageStart += 10;
+            this.pageEnd += 10;
+        } else if (pageChangeValue === "back" && this.pageEnd > 0) {
+            this.pageStart -= 10;
+            this.pageEnd -= 10;
+        }
+        this.updateListAndDropdowns(this.restaurantData, this.searchFilter, this.stateFilter, this.genreFilter);
+    }
+
+    /**
      * Update all filters based on two dropdowns and input
      * @param restList the list of data to be filtered
      * @param searchFilter the search box filter value
@@ -119,6 +143,7 @@ export class RestaurantListComponent implements OnInit {
             tempList = this.restaurantService.filterList(tempList, ['name', 'state', 'genre'], searchFilter);
         }
         this.workingRestaurantList = tempList;
+        this.workingRestaurantListVisible = tempList.slice(this.pageStart, this.pageEnd);
         this.stateSet = this.restaurantService.arrToSet(tempList, "state");
         this.genreSet = this.restaurantService.arrToSet(tempList, "genre");
     }

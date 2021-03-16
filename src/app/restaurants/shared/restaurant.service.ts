@@ -62,9 +62,9 @@ export class RestaurantService {
         }
         const tempList = [];
 
-        
         for (const restItem of restList) {
             for (const fieldName of fieldNames) {
+                // Filter is inclusive rather than exclusive
                 if (restItem.get(fieldName).toLocaleLowerCase().includes(filterVal.toLocaleLowerCase())) {
                     tempList.push(restItem);
                     //only add each item once

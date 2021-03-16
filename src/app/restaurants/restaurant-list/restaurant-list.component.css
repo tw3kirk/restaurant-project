@@ -14,3 +14,7 @@ select {
 label {
     margin-left: 2em;
 }
+
+.page-change {
+    margin : auto;
+}
