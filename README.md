@@ -17,3 +17,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## Easiest way to run this code
+
+Open parent directory in Visual Studio Code
+Open a terminal
+Run `npm update`
+Run `ng serve`
