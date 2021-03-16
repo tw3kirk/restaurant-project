@@ -24,5 +24,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Open parent directory in Visual Studio Code  
 Open a terminal  
 Run `npm update`  
-Run `ng serve`
+Run `ng serve`  
 Navigate to `http://localhost:4200/`
