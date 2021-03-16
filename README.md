@@ -25,3 +25,4 @@ Open parent directory in Visual Studio Code
 Open a terminal  
 Run `npm update`  
 Run `ng serve`
+Navigate to `http://localhost:4200/`
