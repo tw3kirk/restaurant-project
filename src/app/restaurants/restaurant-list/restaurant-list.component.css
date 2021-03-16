@@ -1,0 +1,16 @@
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#searchBar {
+    width: 15em;
+}
+
+select {
+    margin-left: 1em;
+}
+
+label {
+    margin-left: 2em;
+}

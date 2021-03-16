@@ -1,0 +1,36 @@
+
+<input (keyup)="keydown($event)" id="searchBar" placeholder="Filter by name, state, or genre">
+<button type="button" class="btn btn-primary btn-sm" (click)="this.updateListAndDropdowns(this.restaurantData, this.searchFilter, this.stateFilter, this.genreFilter)">Filter</button>
+<label>Filter by State</label>
+<Select id="state-select" (change)="onSelectChange($event, 'state')">
+    <option value="all">All</option>
+    <option *ngFor="let state of stateSet" [value]=state [text]=state></option>
+</Select>
+<label>Filter by Genre</label>
+<Select id="genre-select" (change)="onSelectChange($event, 'genre')">
+    <option value="all">All</option>
+    <option *ngFor="let genre of genreSet" [value]=genre [text]=genre></option>
+</Select>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Phone Number</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let restaurant of workingRestaurantList">
+            <td>{{ restaurant.name }}</td>
+            <td>{{ restaurant.city }}</td>
+            <td>{{ restaurant.state }}</td>
+            <td>{{ restaurant.telephone }}</td>
+            <td>{{ restaurant.genre }}</td>
+        </tr>
+    </tbody>
+</table>
+<div *ngIf="!workingRestaurantList.length">
+    <h2>No Results were found</h2>
+</div>
