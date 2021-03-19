@@ -39,6 +39,7 @@ export class RestaurantListComponent implements OnInit {
     /** Page start and end indeces */
     pageStart = 0;
     pageEnd = 10;
+    workingListSize = 0;
 
     constructor(
         private restaurantService: RestaurantService
@@ -56,6 +57,7 @@ export class RestaurantListComponent implements OnInit {
             }
             // We only need to sort once
             this.restaurantData = this.restaurantService.sortList(<Restaurant[]>arr, "name");
+            this.workingListSize = this.restaurantData.length;
 
             // The first call just fills the dropdowns
             this.updateListAndDropdowns(this.restaurantData, this.searchFilter, this.stateFilter, this.genreFilter);
@@ -143,6 +145,10 @@ export class RestaurantListComponent implements OnInit {
             tempList = this.restaurantService.filterList(tempList, ['name', 'state', 'genre'], searchFilter);
         }
         this.workingRestaurantList = tempList;
+        if (this.workingListSize !== tempList.length) {
+            this.pageStart = 0;
+            this.pageEnd = 10;
+        }
         this.workingRestaurantListVisible = tempList.slice(this.pageStart, this.pageEnd);
         this.stateSet = this.restaurantService.arrToSet(tempList, "state");
         this.genreSet = this.restaurantService.arrToSet(tempList, "genre");
